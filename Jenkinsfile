@@ -1,25 +1,10 @@
-
-peline {
-    agent { label 'executor' }
-    
+pipeline {
+    agent { docker { image 'node:6.3' } }
     stages {
-        stage('Build container image') {
+        stage('build') {
             steps {
-                sh './build.sh'
-            }
-        }
-        
-        stage('Test container') {
-            steps {
-                sh './test.sh'
-            }
-        }
-        
-        stage('Push container to DockerHub') {
-            steps {
-                sh './push.sh'
+                sh 'npm --version'
             }
         }
     }
-}
 }
