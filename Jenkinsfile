@@ -1,13 +1,25 @@
-pipeline {
-    agent {
-        docker { image 'node:7-alpine' }
-    }
+
+peline {
+    agent { label 'executor' }
+    
     stages {
-        stage('Test') {
+        stage('Build container image') {
             steps {
-               echo 'Test...'
+                sh './build.sh'
+            }
+        }
+        
+        stage('Test container') {
+            steps {
+                sh './test.sh'
+            }
+        }
+        
+        stage('Push container to DockerHub') {
+            steps {
+                sh './push.sh'
             }
         }
     }
 }
-
+}
