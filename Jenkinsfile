@@ -1,26 +1,12 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent { label 'executor' }
-    
+    agent { docker { image 'maven:3.3.3' } }
     stages {
-        stage('Build container image') {
+        stage('build') {
             steps {
-                sh './build.sh'
-            }
-        }
-        
-        stage('Test container') {
-            steps {
-                sh './test.sh'
-            }
-        }
-        
-        stage('Push container to DockerHub') {
-            steps {
-                sh './push.sh'
+                sh 'mvn --version'
             }
         }
     }
 }
-
